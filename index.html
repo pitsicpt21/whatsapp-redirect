@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting to WhatsApp...</title>
+    <!-- Primary redirect method -->
+    <script>
+        // Configuration
+        const phoneNumber = "1234567890"; // With country code (no +)
+        const defaultMessage = "Form submitted";
+        
+        // Generate WhatsApp URL
+        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(defaultMessage)}`;
+        
+        // Immediate redirect attempt
+        window.top.location.href = whatsappUrl;
+    </script>
+    
+    <!-- Fallback 1: Meta refresh -->
+    <meta http-equiv="refresh" content="0;url=https://wa.me/1234567890?text=Form+submitted" id="metaRedirect">
+    
+    <!-- Fallback 2: Visual button -->
+    <style>
+        #redirectButton {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background: #25D366;
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+    <!-- Fallback 3: Visible link -->
+    <a id="redirectButton" href="https://wa.me/1234567890?text=Form+submitted" target="_blank">
+        Continue to WhatsApp →
+    </a>
+
+    <!-- Fallback 4: Delayed script -->
+    <script>
+        // Show button if redirect fails
+        setTimeout(() => {
+            if (window.location.href.indexOf('whatsapp.com') === -1) {
+                document.getElementById('redirectButton').style.display = 'block';
+            }
+        }, 1500);
+    </script>
+</body>
+</html>
